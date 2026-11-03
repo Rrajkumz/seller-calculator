@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Seller Profit Calculator: Etsy, Amazon & Shopify Fees (2026)</title>
+<link rel="canonical" href="https://YOURDOMAIN.com/index.html">
+<meta name="description" content="Free Etsy, Amazon FBA and Shopify fee calculator. See fees, net profit, margin and the price you need to hit your target margin.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eaf0f4;--card:#fff;--ink:#12202e;--mute:#5b6b7a;--line:#d3dde5;--teal:#0a7c74;--fee:#e0663a;--cost:#8aa0b2;--bad:#b3261e;--field:#f6f9fb;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0e161e;--card:#16222d;--ink:#e8eff5;--mute:#92a4b4;--line:#27384a;--teal:#33c2b6;--fee:#f08455;--cost:#5d7488;--bad:#ff7b72;--field:#101a23}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#0e161e;--card:#16222d;--ink:#e8eff5;--mute:#92a4b4;--line:#27384a;--teal:#33c2b6;--fee:#f08455;--cost:#5d7488;--bad:#ff7b72;--field:#101a23}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:28px 16px 56px}
+h1{font:800 clamp(28px,5vw,44px)/1.08 "Bricolage Grotesque",Inter,system-ui,sans-serif;margin:0 0 8px;letter-spacing:-.02em}
+.sub{color:var(--mute);margin:0 0 24px;max-width:60ch}
+.tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.tab{font:700 15px "Bricolage Grotesque",Inter,sans-serif;border:1.5px solid var(--line);background:var(--card);color:var(--ink);padding:10px 20px;border-radius:999px;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.tab:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:760px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+.card h2{font:700 18px "Bricolage Grotesque",Inter,sans-serif;margin:0 0 14px}
+label{display:block;font-size:14px;font-weight:500;margin:0 0 12px}
+label span{display:block;color:var(--mute);margin-bottom:4px}
+input[type=number],select{width:100%;font:500 16px Inter,sans-serif;padding:10px 12px;border:1.5px solid var(--line);border-radius:8px;background:var(--field);color:var(--ink)}
+.chk{display:flex;gap:10px;align-items:center;font-size:14px;margin:0 0 12px}
+.chk input{width:18px;height:18px;accent-color:var(--teal)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.panel[hidden]{display:none}
+.big{font:800 clamp(40px,8vw,60px)/1 "Bricolage Grotesque",Inter,sans-serif;letter-spacing:-.03em;margin:2px 0 4px}
+.big.neg{color:var(--bad)}.big.pos{color:var(--teal)}
+.kicker{color:var(--mute);font-size:14px}
+.bar{display:flex;height:22px;border-radius:6px;overflow:hidden;margin:18px 0 8px;background:var(--line)}
+.bar i{display:block;height:100%;transition:width .25s}
+.leg{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--mute);margin-bottom:16px}
+.leg b{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px}
+table{width:100%;border-collapse:collapse;font-size:15px}
+td{padding:7px 0;border-bottom:1px solid var(--line)}
+td:last-child{text-align:right;font-variant-numeric:tabular-nums;font-weight:500}
+tr.tot td{font-weight:700;border-bottom:0;padding-top:10px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0 0}
+.stat{background:var(--field);border:1px solid var(--line);border-radius:10px;padding:12px}
+.stat small{display:block;color:var(--mute);font-size:13px}
+.stat strong{font:700 22px "Bricolage Grotesque",Inter,sans-serif}
+.tgt{margin-top:16px;padding-top:16px;border-top:1px dashed var(--line)}
+.note{font-size:13px;color:var(--mute);margin-top:22px;max-width:75ch}
+.faq{margin-top:34px}.faq h2{font:800 24px "Bricolage Grotesque",Inter,sans-serif}
+.faq h3{font-size:16px;margin:18px 0 4px}.faq p{margin:0;color:var(--mute);max-width:70ch}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>Seller profit calculator</h1>
+<p class="sub">Enter your price and costs. See every Etsy, Amazon or Shopify fee, your real profit, and the price you need to hit your target margin.</p>
+
+<div class="tabs" role="tablist">
+<button class="tab" role="tab" aria-selected="true" data-t="etsy">Etsy</button>
+<button class="tab" role="tab" aria-selected="false" data-t="amazon">Amazon</button>
+<button class="tab" role="tab" aria-selected="false" data-t="shopify">Shopify</button>
+</div>
+
+<div class="grid">
+<div class="card">
+<h2>Your numbers</h2>
+<div class="row2">
+<label><span>Item price ($)</span><input type="number" id="price" value="25" min="0" step="0.01" inputmode="decimal"></label>
+<label><span>Item cost ($)</span><input type="number" id="cogs" value="8" min="0" step="0.01" inputmode="decimal"></label>
+</div>
+<div class="row2" id="shiprow">
+<label><span>Shipping you charge ($)</span><input type="number" id="ship" value="0" min="0" step="0.01" inputmode="decimal"></label>
+<label><span>Shipping you pay ($)</span><input type="number" id="shipc" value="4" min="0" step="0.01" inputmode="decimal"></label>
+</div>
+<label><span>Ad spend per sale ($)</span><input type="number" id="ads" value="0" min="0" step="0.01" inputmode="decimal"></label>
+
+<div class="panel" data-p="etsy">
+<label><span>Etsy Offsite Ads</span>
+<select id="e_off"><option value="0">Not triggered</option><option value="0.15" selected>Triggered, shop under $10k/yr (15%)</option><option value="0.12">Triggered, shop over $10k/yr (12%)</option></select></label>
+</div>
+
+<div class="panel" data-p="amazon" hidden>
+<label><span>Category (referral fee)</span>
+<select id="a_cat"><option value="0.15">Most categories (15%)</option><option value="0.08">Consumer electronics / computers (8%)</option><option value="0.08">Full-size appliances (8%)</option><option value="0.12">Automotive / industrial (12%)</option><option value="0.10">Tires (10%)</option><option value="custom">Custom %</option></select></label>
+<label id="a_cust_l" hidden><span>Custom referral fee (%)</span><input type="number" id="a_cust" value="15" min="0" max="100" step="0.1"></label>
+<label><span>Fulfillment</span><select id="a_ful"><option value="fba">FBA (Amazon ships)</option><option value="fbm">FBM (you ship)</option></select></label>
+<label id="a_fba_l"><span>FBA fulfillment fee ($, from Amazon’s fee table)</span><input type="number" id="a_fba" value="3.50" min="0" step="0.01" inputmode="decimal"></label>
+<label id="a_sto_l"><span>Storage and other per unit ($)</span><input type="number" id="a_sto" value="0.20" min="0" step="0.01" inputmode="decimal"></label>
+<div class="chk" id="a_sur_l"><input type="checkbox" id="a_sur" checked><label for="a_sur" style="margin:0">Add the 3.5% FBA fuel surcharge (since April 17, 2026)</label></div>
+<div class="chk"><input type="checkbox" id="a_ind"><label for="a_ind" style="margin:0">Individual plan (+$0.99 per item)</label></div>
+</div>
+
+<div class="panel" data-p="shopify" hidden>
+<label><span>Shopify plan</span><select id="s_plan"><option value="0.029|0.02">Basic (2.9% + $0.30)</option><option value="0.027|0.01">Grow (2.7% + $0.30)</option><option value="0.025|0.006">Advanced (2.5% + $0.30)</option></select></label>
+<label><span>Payment gateway</span><select id="s_gw"><option value="sp">Shopify Payments</option><option value="tp">Third-party (PayPal, Stripe direct, etc.)</option></select></label>
+<div class="row2" id="s_tp" hidden>
+<label><span>Gateway rate (%)</span><input type="number" id="s_gr" value="2.9" min="0" step="0.01"></label>
+<label><span>Gateway fixed fee ($)</span><input type="number" id="s_gf" value="0.30" min="0" step="0.01"></label>
+</div>
+<div class="chk"><input type="checkbox" id="s_int"><label for="s_int" style="margin:0">International card (+1.5%)</label></div>
+</div>
+</div>
+
+<div class="card">
+<h2>Your profit</h2>
+<div class="kicker">Net profit per sale</div>
+<div class="big" id="profit">$0.00</div>
+<div class="kicker" id="verdict"></div>
+<div class="bar" id="bar" aria-hidden="true"><i style="background:var(--cost)"></i><i style="background:var(--fee)"></i><i style="background:var(--teal)"></i></div>
+<div class="leg"><span><b style="background:var(--cost)"></b>Your costs</span><span><b style="background:var(--fee)"></b>Platform fees</span><span><b style="background:var(--teal)"></b>Profit</span></div>
+<table id="tbl"></table>
+<div class="stats">
+<div class="stat"><small>Profit margin</small><strong id="margin">0%</strong></div>
+<div class="stat"><small>Platform takes</small><strong id="take">0%</strong></div>
+</div>
+<div class="tgt">
+<label style="margin-bottom:8px"><span>Target profit margin (%)</span><input type="number" id="tm" value="30" min="1" max="90" step="1"></label>
+<div class="kicker">Price needed: <strong id="tp" style="color:var(--ink)"></strong> &nbsp; Break-even price: <strong id="be" style="color:var(--ink)"></strong></div>
+</div>
+</div>
+</div>
+
+<p class="note">Rates checked in November 2026 against published seller fee pages: Etsy ($0.20 listing, 6.5% transaction, 3% + $0.25 US processing), Amazon (referral fee with $0.30 minimum, FBA surcharge), Shopify (US online card rates and third-party gateway fee). Fees change and vary by country, category and plan, so confirm with the platform before you set prices. Shopify monthly plan costs and sales tax are not included. This is an estimate, not tax or financial advice.</p>
+
+<section class="faq">
+<h2>Seller fee questions</h2>
+<h3>How much does Etsy take from each sale?</h3>
+<p>For a typical US sale: a $0.20 listing fee, a 6.5% transaction fee on the item price plus shipping, and 3% + $0.25 payment processing. That is about 10% before advertising. Offsite Ads adds 12% to 15% on sales it drives.</p>
+<h3>How is the Amazon referral fee calculated?</h3>
+<p>It is a percentage of the total sale price, 15% in most categories, with a $0.30 minimum per item. FBA fulfillment fees are charged on top of it.</p>
+<h3>Why is using a third-party gateway on Shopify more expensive?</h3>
+<p>Shopify charges an extra 2% on Basic, 1% on Grow and 0.6% on Advanced when you skip Shopify Payments, on top of whatever your gateway charges.</p>
+<h3>What margin should I aim for?</h3>
+<p>Set a target margin above, and the calculator shows the price that reaches it after all fees, shipping and ad spend.</p>
+</section>
+</div>
+
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+var tab='etsy';
+function n(id){var v=parseFloat($(id).value);return isFinite(v)&&v>0?v:0}
+function $$(x){var s=x<0?'-':'';return s+'$'+Math.abs(x).toFixed(2)}
+
+function calc(price){
+  var ship=n('ship'),shipc=n('shipc'),cogs=n('cogs'),ads=n('ads');
+  var L=[],rev,fees=0,own=cogs+ads;
+  if(tab==='etsy'){
+    rev=price+ship;
+    var lf=0.20,tf=0.065*rev,pf=0.03*rev+0.25,of=parseFloat($('e_off').value)*rev;
+    L=[['Listing fee',lf],['Transaction fee (6.5%)',tf],['Payment processing (3% + $0.25)',pf]];
+    if(of)L.push(['Offsite Ads fee',of]);
+    fees=lf+tf+pf+of;own+=shipc;
+  }else if(tab==='amazon'){
+    var fba=$('a_ful').value==='fba';
+    rev=price+(fba?0:ship);
+    var pct=$('a_cat').value==='custom'?n('a_cust')/100:parseFloat($('a_cat').value);
+    var rf=Math.max(0.30,pct*rev);
+    L=[['Referral fee',rf]];fees=rf;
+    if(fba){
+      var ff=n('a_fba')*($('a_sur').checked?1.035:1);
+      L.push(['FBA fulfillment fee',ff]);fees+=ff;
+      var st=n('a_sto');if(st){L.push(['Storage and other',st]);fees+=st}
+    }else own+=shipc;
+    if($('a_ind').checked){L.push(['Individual plan fee',0.99]);fees+=0.99}
+  }else{
+    rev=price+ship;
+    var pl=$('s_plan').value.split('|'),pr=parseFloat(pl[0]),tpf=parseFloat(pl[1]);
+    if($('s_gw').value==='sp'){
+      var a=pr*rev,b=0.30;L=[['Card processing ('+(pr*100).toFixed(1)+'%)',a],['Fixed fee ($0.30)',b]];fees=a+b;
+    }else{
+      var g=n('s_gr')/100*rev,gf=n('s_gf'),t=tpf*rev;
+      L=[['Gateway rate',g],['Gateway fixed fee',gf],['Shopify third-party fee ('+(tpf*100).toFixed(1)+'%)',t]];fees=g+gf+t;
+    }
+    if($('s_int').checked){var ic=0.015*rev;L.push(['International card (1.5%)',ic]);fees+=ic}
+    own+=shipc;
+  }
+  return {rev:rev,fees:fees,own:own,L:L,profit:rev-fees-own};
+}
+function solve(target){
+  var lo=0,hi=100000,i,m;
+  for(i=0;i<60;i++){
+    var mid=(lo+hi)/2,r=calc(mid);
+    m=r.rev>0?r.profit/r.rev:-1;
+    if(m<target)lo=mid;else hi=mid;
+  }
+  return hi>=99999?null:hi;
+}
+function render(){
+  var price=n('price'),r=calc(price);
+  var p=$('profit');p.textContent=$$(r.profit);p.className='big '+(r.profit<0?'neg':'pos');
+  $('verdict').textContent=r.profit<0?'You lose money on this sale at this price.':'After fees, costs and ads.';
+  var t='<tr><td>Revenue (price + shipping charged)</td><td>'+$$(r.rev)+'</td></tr>';
+  r.L.forEach(function(x){t+='<tr><td>'+x[0]+'</td><td>−'+$$(x[1])+'</td></tr>'});
+  t+='<tr><td>Your costs (item, shipping, ads)</td><td>−'+$$(r.own)+'</td></tr><tr class="tot"><td>Net profit</td><td>'+$$(r.profit)+'</td></tr>';
+  $('tbl').innerHTML=t;
+  var base=Math.max(r.rev,0.0001),pc=Math.min(100,r.own/base*100),fc=Math.min(100-pc,r.fees/base*100),pp=Math.max(0,100-pc-fc);
+  var bs=$('bar').children;bs[0].style.width=pc+'%';bs[1].style.width=fc+'%';bs[2].style.width=pp+'%';
+  $('margin').textContent=(r.rev>0?r.profit/r.rev*100:0).toFixed(1)+'%';
+  $('take').textContent=(r.rev>0?r.fees/r.rev*100:0).toFixed(1)+'%';
+  var tm=Math.min(90,Math.max(1,n('tm')))/100,tp=solve(tm),be=solve(0);
+  $('tp').textContent=tp===null?'n/a':$$(tp);$('be').textContent=be===null?'n/a':$$(be);
+}
+function show(){
+  document.querySelectorAll('.tab').forEach(function(b){b.setAttribute('aria-selected',b.dataset.t===tab)});
+  document.querySelectorAll('.panel').forEach(function(p){p.hidden=p.dataset.p!==tab});
+  var fbaOn=tab==='amazon'&&$('a_ful').value==='fba';
+  $('shiprow').style.display=fbaOn?'none':'';
+  if(tab==='amazon'){$('a_fba_l').hidden=$('a_sto_l').hidden=$('a_sur_l').hidden=!fbaOn}
+  $('a_cust_l').hidden=$('a_cat').value!=='custom';
+  $('s_tp').hidden=$('s_gw').value!=='tp';
+  render();
+}
+document.querySelectorAll('.tab').forEach(function(b){b.addEventListener('click',function(){tab=b.dataset.t;show()})});
+document.querySelectorAll('input,select').forEach(function(e){e.addEventListener('input',show);e.addEventListener('change',show)});
+show();
+})();
+</script>
+<footer style="max-width:980px;margin:0 auto;padding:0 16px 40px;font-size:14px;color:var(--mute)"><p><a href="faq.html">FAQ</a> &nbsp; <a href="about.html">About</a> &nbsp; <a href="contact.html">Contact</a> &nbsp; <a href="privacy-policy.html">Privacy Policy</a> &nbsp; <a href="terms.html">Terms</a> &nbsp; <a href="disclaimer.html">Disclaimer</a></p><p>&copy; 2026 Seller Profit Calculator</p></footer>
+</body>
+</html>
