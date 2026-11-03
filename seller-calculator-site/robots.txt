@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://seller-calculator-site.pages.dev/sitemap.xml
